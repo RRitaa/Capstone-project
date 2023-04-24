@@ -25,5 +25,6 @@ urlpatterns = [
     path('restaurant/', include('restaurant.urls')),
     path('restaurant/menu/',include('restaurant.urls')),
     path('api-token-auth/', obtain_auth_token),
-
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
 ]
