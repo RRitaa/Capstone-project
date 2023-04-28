@@ -8,3 +8,20 @@ Username: testuser
 Password: lemon@799!
 Email: test@littlelemon.com
 Token: "343fe6e1ef20e75be06a5c271b72f9465290f21c
+
+
+
+
+
+
+API:
+http://127.0.0.1:8000/restaurant/menu/
+http://127.0.0.1:8000/api/menu-items/
+
+http://127.0.0.1:8000/admin/restaurant/menu/
+
+http://127.0.0.1:8000/admin
+
+http://127.0.0.1:8000/admin/authtoken/tokenproxy/
+
+http://127.0.0.1:8000/restaurant/booking/

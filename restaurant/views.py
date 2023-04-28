@@ -1,10 +1,12 @@
 from django.shortcuts import render
-from rest_framework import generics
+from django.http import HttpRequest, HttpResponse
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
+from .forms import BookingForm
+from datetime import datetime
+import json
 
 from .serializers import MenuSerializer
 from .models import Menu
@@ -25,14 +27,31 @@ class BookingViewSet(viewsets.ModelViewSet):
     queryset = Menu.objects.all()
 
 
-@api_view()
-@permission_classes([IsAuthenticated])
-# @authentication_classes([TokenAuthentication])
-def msg(request):
-    return Response({"message":"This view is protected"})
 
 
-def index(request):
-    return render(request, 'index.html', {})
 
+def home(request):
+    return render(request, 'index.html')
 
+def about(request):
+    return render(request, 'about.html')
+
+def menu(request):
+    menu_data = Menu.objects.all()
+    main_data = {"menu": menu_data}
+    return render(request, 'menu.html', {"menu": main_data})
+
+def book(request):
+    form = BookingForm()
+    if request.method == 'POST':
+         form = BookingForm(request.POST)
+         if form.is_valid():
+             form.save()
+    context = {'form':form}
+    return render(request, 'book.html', context)
+    
+def reservations(request):
+    date = request.GET.get('date',datetime.today().date())
+    bookings = Booking.objects.all()
+    booking_json = serializers.serialize('json', bookings)
+    return render(request, 'bookings.html',{"bookings":booking_json})
